@@ -4,3 +4,11 @@
 
 # An example controller showing a sample home page
 GET     /                                                     controllers.HomeController.index
+
+GET     /invoice                      controllers.InvoiceController.index()
+GET     /invoice/create               controllers.InvoiceController.create()
+GET     /invoice/:id                  controllers.InvoiceController.show(id : Integer)
+GET     /invoice/edit/:id             controllers.InvoiceController.edit(id: Integer)
+PUT     /invoice/edit                 controllers.InvoiceController.update()
+POST    /invoice/create               controllers.InvoiceController.save()
+DELETE  /invoice/delete/:id           controllers.InvoiceController.destroy(id: Integer)
