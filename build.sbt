@@ -1,6 +1,6 @@
 name := """PlayCRUD"""
 
-version := "20190830"
+version := "20190903"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava, SbtWeb)
 

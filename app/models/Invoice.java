@@ -14,7 +14,7 @@ import java.util.Set;
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "invoice_id", nullable = false)
     public Long invoiceId;
 
     @Column(name = "total_price", columnDefinition = "double", nullable = false)
@@ -23,12 +23,8 @@ public class Invoice {
     @Column(name = "invoice_date", columnDefinition = "date", nullable = false)
     public Date invoiceDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="invoice_products", joinColumns = {
-            @JoinColumn(name = "invoiceId", nullable = false, foreignKey = @ForeignKey(name = "FK_INVOICE_PRODUCT"))},
-            inverseJoinColumns = {@JoinColumn(name = "productId", nullable = false)
-            })
-    public Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "invoice")
+    public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Invoice(InvoiceDTO invoiceDTO){
         this.invoiceId = invoiceDTO.invoiceId;
