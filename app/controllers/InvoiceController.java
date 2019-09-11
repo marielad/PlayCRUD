@@ -8,5 +8,4 @@ public class InvoiceController extends Controller {
     public Result read() { return ok(views.html.index.render());}
     public Result update() { return ok(views.html.index.render());}
     public Result delete(int id) { return ok(views.html.index.render());}
-
 }
