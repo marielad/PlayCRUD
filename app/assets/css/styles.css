@@ -1,0 +1,18 @@
+body {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer{
+    height: 250px;
+}
+
+.loqsea{
+    height: 100px;
+    background-color: aquamarine;
+}

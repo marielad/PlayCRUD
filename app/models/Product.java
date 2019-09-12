@@ -1,6 +1,5 @@
 package models;
 
-import dto.ProductDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;

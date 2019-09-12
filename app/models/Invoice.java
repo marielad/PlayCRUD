@@ -26,6 +26,7 @@ public class Invoice {
     @OneToMany(mappedBy = "invoice")
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
+    public Invoice(){}
     public Invoice(InvoiceDTO invoiceDTO){
         this.invoiceId = invoiceDTO.invoiceId;
         this.totalPrice = invoiceDTO.totalPrice;

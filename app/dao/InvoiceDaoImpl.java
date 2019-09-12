@@ -2,6 +2,7 @@ package dao;
 
 import models.Invoice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvoiceDaoImpl implements InvoiceDao {
@@ -22,6 +23,9 @@ public class InvoiceDaoImpl implements InvoiceDao {
 
     @Override
     public List<Invoice> findAll() {
+        List<Invoice> invoiceList = new ArrayList<>();
+        invoiceList.add(new Invoice());
+        System.out.println("Entró");
         return null;
     }
 
