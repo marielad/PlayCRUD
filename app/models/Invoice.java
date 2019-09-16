@@ -4,12 +4,13 @@ import dto.InvoiceDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Invoice")
+@Table(name = "invoice")
 @DynamicUpdate
 public class Invoice {
     @Id
@@ -17,8 +18,8 @@ public class Invoice {
     @Column(name = "invoice_id", nullable = false)
     public Long invoiceId;
 
-    @Column(name = "total_price", columnDefinition = "double", nullable = false)
-    public double totalPrice;
+    @Column(name = "total_price",  columnDefinition = "double precision", nullable = false)
+    public Double totalPrice;
 
     @Column(name = "invoice_date", columnDefinition = "date", nullable = false)
     public Date invoiceDate;
@@ -31,7 +32,6 @@ public class Invoice {
         this.invoiceId = invoiceDTO.invoiceId;
         this.totalPrice = invoiceDTO.totalPrice;
         this.invoiceDate = invoiceDTO.invoiceDate;
-
     }
 }
 

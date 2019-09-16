@@ -1,8 +1,8 @@
 package controllers;
 
 import dto.InvoiceDTO;
-import dto.ProductDTO;
-import models.Product;
+//import dto.ProductDTO;
+//import models.Product;
 import play.mvc.*;
 import views.html.*;
 
@@ -12,10 +12,10 @@ public class InvoiceController extends Controller {
         return ok(create.render());
     }
     public Result read() {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setProductId(1L);
-        productDTO.setProductName("Epa");
-        productDTO.setItemPrice(10.00);
+//        ProductDTO productDTO = new ProductDTO();
+//        productDTO.setProductId(1L);
+//        productDTO.setProductName("Epa");
+//        productDTO.setItemPrice(10.00);
 
         InvoiceDTO invoiceDTO = new InvoiceDTO();
 

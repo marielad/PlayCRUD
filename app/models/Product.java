@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Products", schema= "security")
+@Table(name = "products")
 @DynamicUpdate
 public class Product {
     @Id
@@ -26,35 +26,4 @@ public class Product {
 
     public Product(){}
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public double getItemPrice() {
-        return itemPrice;
-    }
-
-    public void setItemPrice(double itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public Set<ProductInvoice> getProductInvoices() {
-        return productInvoices;
-    }
-
-    public void setProductInvoices(Set<ProductInvoice> productInvoices) {
-        this.productInvoices = productInvoices;
-    }
 }

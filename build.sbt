@@ -20,7 +20,7 @@ libraryDependencies += "org.postgresql" % "postgresql" % "9.4.1212"
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
 libraryDependencies += "org.awaitility" % "awaitility" % "2.0.0" % Test
 
-libraryDependencies ++= Seq(evolutions, jdbc)
+//libraryDependencies ++= Seq(evolutions, jdbc)
 
 // CACHE
 libraryDependencies ++= Seq(

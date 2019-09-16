@@ -14,7 +14,6 @@ public class ProductInvoice {
     @Column(name = "id", nullable = false)
     public  Long productInvoiceId;
 
-    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     public Product product;

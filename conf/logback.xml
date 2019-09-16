@@ -12,7 +12,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+      <pattern>%date %coloredLevel %logger{15} in %thread - %message%n%xException{10}</pattern>
     </encoder>
   </appender>
 
@@ -27,12 +27,20 @@
   <logger name="play" level="INFO" />
   <logger name="application" level="DEBUG" />
 
-  <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+  <!-- https://hibernate.atlassian.net/browse/HV-1323 -->
+  <logger name="org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator" level="ERROR" />
+
+  <!-- https://www.playframework.com/documentation/2.6.x/JavaDatabase#how-to-configure-sql-log-statement -->
+  <!-- TODO ¡¡¡¡¡ ESTO EN PRO HAY QUE DESACTIVARLO !!!!  -->
+  <logger name="org.jdbcdslog.ConnectionLogger" level="OFF"  /> <!-- Won' log connections -->
+  <logger name="org.jdbcdslog.StatementLogger"  level="INFO" /> <!-- Will log all statements -->
+  <logger name="org.jdbcdslog.ResultSetLogger"  level="OFF"  /> <!-- Won' log result sets -->
 
   <root level="WARN">
     <appender-ref ref="ASYNCFILE" />
     <appender-ref ref="ASYNCSTDOUT" />
   </root>
+
+  <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
 </configuration>
