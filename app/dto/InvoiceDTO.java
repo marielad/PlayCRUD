@@ -6,5 +6,7 @@ public class InvoiceDTO {
     public Long invoiceId;
     public double totalPrice;
     public Date invoiceDate;
-    public Set<ProductDTO> products = new LinkedHashSet<>();
+    public Set<ProductInvoiceDTO> productInvoiceDTOSet = new LinkedHashSet<>();
+
+    public InvoiceDTO(){}
 }

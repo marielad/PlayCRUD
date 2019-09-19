@@ -30,7 +30,11 @@ public class HomeController extends Controller {
     public Result index() {
         Query query = jpaApi.em().createQuery("from Invoice");
         List<Invoice> invoiceList = query.getResultList();
-        System.out.println(invoiceList);
+        for (Invoice invoice: invoiceList) {
+            System.out.println(invoice.totalPrice);
+            System.out.println(invoice.invoiceDate);
+            System.out.println(invoice.productInvoices);
+        }
         return ok(index.render());
     }
 

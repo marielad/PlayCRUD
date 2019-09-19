@@ -4,10 +4,10 @@ import models.Invoice;
 
 import java.util.List;
 
-public interface InvoiceDao {
-    public void create(Invoice invoice);
-    public void delete(int invoiceId);
-    public void update(Invoice invoice);
-    public List<Invoice> findAll();
-    public Invoice findById(int id);
+public interface InvoiceDao{
+    List<Invoice> findAll();
+    Invoice findByPk(Long id);
+    Invoice create(Invoice invoice);
+    Invoice update(Invoice invoice);
+    Invoice delete(Invoice invoice);
 }

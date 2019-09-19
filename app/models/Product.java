@@ -1,5 +1,6 @@
 package models;
 
+import dto.ProductDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -21,9 +22,12 @@ public class Product {
     @Column(name = "item_price", columnDefinition = "varchar", nullable = false)
     public double itemPrice;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Product(){}
-
+    public Product(ProductDTO productDTO){
+        this.productName = productDTO.productName;
+        this.itemPrice = productDTO.itemPrice;
+    }
 }

@@ -5,14 +5,14 @@ body {
 }
 
 main {
+    height: 100%;
     flex: 1 0 auto;
+}
+
+content {
+    height: 100%;
 }
 
 footer{
     height: 250px;
-}
-
-.loqsea{
-    height: 100px;
-    background-color: aquamarine;
 }

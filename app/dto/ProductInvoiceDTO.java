@@ -6,4 +6,7 @@ public class ProductInvoiceDTO {
     public ProductDTO product;
     public InvoiceDTO invoice;
     public int amount;
+    public Double price;
+
+     public ProductInvoiceDTO(){}
 }

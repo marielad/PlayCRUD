@@ -1,24 +1,25 @@
 package controllers;
 
+import dao.InvoiceDao;
 import dto.InvoiceDTO;
-//import dto.ProductDTO;
-//import models.Product;
+import models.Invoice;
 import play.mvc.*;
 import views.html.*;
 
+import javax.inject.Inject;
+import java.util.List;
+
 public class InvoiceController extends Controller {
+
+    @Inject
+    InvoiceDao invoiceDao;
+
     public Result create() { 
         System.out.println("Create");
         return ok(create.render());
     }
     public Result read() {
-//        ProductDTO productDTO = new ProductDTO();
-//        productDTO.setProductId(1L);
-//        productDTO.setProductName("Epa");
-//        productDTO.setItemPrice(10.00);
-
-        InvoiceDTO invoiceDTO = new InvoiceDTO();
-
+//        List<InvoiceDTO> invoiceDTOList = invoiceDao.findAll();
         return ok(read.render());
     }
     public Result update() { 

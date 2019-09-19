@@ -1,5 +1,6 @@
 package models;
 
+import dto.ProductInvoiceDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -24,4 +25,16 @@ public class ProductInvoice {
 
     @Column(name = "amount", columnDefinition = "integer", nullable = false)
     public int amount;
+
+    @Column(name = "price",  columnDefinition = "double precision", nullable = false)
+    public Double price;
+
+    public ProductInvoice(){}
+    public ProductInvoice(ProductInvoiceDTO productInvoiceDTO){
+        this.product = new Product(productInvoiceDTO.product);
+        this.invoice = new Invoice(productInvoiceDTO.invoice);
+        this.amount = productInvoiceDTO.amount;
+        this.price = productInvoiceDTO.price;
+    }
+
 }
