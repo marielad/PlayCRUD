@@ -7,6 +7,7 @@ import play.mvc.*;
 import views.html.*;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InvoiceController extends Controller {
@@ -19,7 +20,11 @@ public class InvoiceController extends Controller {
         return ok(create.render());
     }
     public Result read() {
-//        List<InvoiceDTO> invoiceDTOList = invoiceDao.findAll();
+        List<InvoiceDTO> invoiceDTOList = new ArrayList<>();
+        for (Invoice invoice : invoiceDao.findAll()) {
+            invoiceDTOList.add(new InvoiceDTO(invoice));
+        }
+
         return ok(read.render());
     }
     public Result update() { 
