@@ -4,11 +4,12 @@ import dto.ProductInvoiceDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "product_invoice")
 @DynamicUpdate
-public class ProductInvoice {
+public class ProductInvoice implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +17,11 @@ public class ProductInvoice {
     public  Long productInvoiceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "PRODUCT_ID_FK"))
     public Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_id")
+    @JoinColumn(name = "invoice_id", foreignKey = @ForeignKey(name = "INVOICE_ID_FK"))
     public Invoice invoice;
 
     @Column(name = "amount", columnDefinition = "integer", nullable = false)

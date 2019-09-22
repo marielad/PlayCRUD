@@ -4,13 +4,14 @@ import dto.ProductDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "products")
 @DynamicUpdate
-public class Product {
+public class Product  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
@@ -22,7 +23,7 @@ public class Product {
     @Column(name = "item_price", columnDefinition = "varchar", nullable = false)
     public double itemPrice;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Product(){}

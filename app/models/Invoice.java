@@ -5,6 +5,7 @@ import dto.ProductInvoiceDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "invoice")
 @DynamicUpdate
-public class Invoice {
+public class Invoice  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id", nullable = false)
@@ -25,7 +26,7 @@ public class Invoice {
     @Column(name = "invoice_date", columnDefinition = "date", nullable = false)
     public Date invoiceDate;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Invoice(){}
@@ -33,13 +34,13 @@ public class Invoice {
         this.invoiceId = invoiceDTO.invoiceId;
         this.totalPrice = invoiceDTO.totalPrice;
         this.invoiceDate = invoiceDTO.invoiceDate;
-        this.productInvoices = addProducts(invoiceDTO.productInvoiceDTOSet);
+        this.productInvoices = addProducts(invoiceDTO.productInvoiceDTOList);
     }
 
-    public Set<ProductInvoice> addProducts(Set<ProductInvoiceDTO> productInvoiceDTOSet){
+    public Set<ProductInvoice> addProducts(List<ProductInvoiceDTO> productInvoiceDTOList){
         Set<ProductInvoice> productInvoiceSet = new HashSet<>();
-        for (ProductInvoiceDTO productInvoiceDTO : productInvoiceDTOSet) {
-            productInvoiceSet.add(new ProductInvoice(productInvoiceDTO));
+        for (int i = 0; i >= productInvoiceDTOList.size(); i++) {
+            productInvoiceSet.add(new ProductInvoice(productInvoiceDTOList.get(i)));
         }
         return productInvoiceSet;
     }

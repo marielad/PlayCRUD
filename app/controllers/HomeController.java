@@ -28,13 +28,13 @@ public class HomeController extends Controller {
 
     @Transactional
     public Result index() {
-        Query query = jpaApi.em().createQuery("from Invoice");
-        List<Invoice> invoiceList = query.getResultList();
-        for (Invoice invoice: invoiceList) {
-            System.out.println(invoice.totalPrice);
-            System.out.println(invoice.invoiceDate);
-            System.out.println(invoice.productInvoices);
-        }
+//        Query query = jpaApi.em().createQuery("from Invoice");
+//        List<Invoice> invoiceList = query.getResultList();
+//        for (Invoice invoice: invoiceList) {
+//            System.out.println(invoice.totalPrice);
+//            System.out.println(invoice.invoiceDate);
+//            System.out.println(invoice.productInvoices);
+//        }
         return ok(index.render());
     }
 

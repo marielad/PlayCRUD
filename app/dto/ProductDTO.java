@@ -1,39 +1,45 @@
 package dto;
 
-//import models.ProductInvoice;
-
 import models.Product;
 import models.ProductInvoice;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ProductDTO {
     public Long productId;
     public String productName;
     public Double itemPrice;
-    public Set<ProductInvoiceDTO> productInvoiceDTOSet = new HashSet<>();
+    public List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
 
     public ProductDTO() {}
+    public ProductDTO(Long productId, String productName, Double itemPrice, List<ProductInvoiceDTO> productInvoiceDTOS) {
+        this.productId = productId;
+        this.productName = productName;
+        this.itemPrice = itemPrice;
+        this.productInvoiceDTOList = productInvoiceDTOS;
+    }
+
     public ProductDTO(Product product) {
         this.productId = product.productId;
         this.productName = product.productName;
         this.itemPrice = product.itemPrice;
-        this.productInvoiceDTOSet = addInvoices(product.productInvoices);
+        this.productInvoiceDTOList = addInvoices(product.productInvoices);
     }
 
-    public Set<ProductInvoiceDTO> addInvoices(Set<ProductInvoice> productInvoiceSet){
-        Set<ProductInvoiceDTO> productInvoiceDTOSet = new HashSet<>();
+    public List<ProductInvoiceDTO> addInvoices(Set<ProductInvoice> productInvoiceSet){
+        List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
         for (ProductInvoice productInvoice : productInvoiceSet) {
-            productInvoiceDTOSet.add(new ProductInvoiceDTO(productInvoice));
+            productInvoiceDTOList.add(new ProductInvoiceDTO(productInvoice));
         }
-        return productInvoiceDTOSet;
+        return productInvoiceDTOList;
     }
 
     public void addInvoice(ProductInvoice productInvoice){
-        this.productInvoiceDTOSet.add(new ProductInvoiceDTO(productInvoice));
+        this.productInvoiceDTOList.add(new ProductInvoiceDTO(productInvoice));
     }
     public void removeInvoice(ProductInvoiceDTO productInvoiceDTO){
-        this.productInvoiceDTOSet.remove(productInvoiceDTO);
+        this.productInvoiceDTOList.remove(productInvoiceDTO);
     }
 }
