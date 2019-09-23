@@ -21,35 +21,29 @@ public class Invoice  implements Serializable {
     public Long invoiceId;
 
     @Column(name = "total_price",  columnDefinition = "double precision", nullable = false)
-    public Double totalPrice;
+    public Double totalPrice = 0.00;
 
     @Column(name = "invoice_date", columnDefinition = "date", nullable = false)
-    public Date invoiceDate;
+    public Date invoiceDate = new Date();
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Invoice(){}
-    public Invoice(InvoiceDTO invoiceDTO){
-        this.invoiceId = invoiceDTO.invoiceId;
-        this.totalPrice = invoiceDTO.totalPrice;
-        this.invoiceDate = invoiceDTO.invoiceDate;
-        this.productInvoices = addProducts(invoiceDTO.productInvoiceDTOList);
-    }
 
-    public Set<ProductInvoice> addProducts(List<ProductInvoiceDTO> productInvoiceDTOList){
-        Set<ProductInvoice> productInvoiceSet = new HashSet<>();
-        for (int i = 0; i >= productInvoiceDTOList.size(); i++) {
-            productInvoiceSet.add(new ProductInvoice(productInvoiceDTOList.get(i)));
+    public Set<ProductInvoice> addProducts(List<ProductInvoiceDTO> productInvoiceList){
+        for (int i = 0; i < productInvoiceList.size(); i++) {
+            this.productInvoices.add(new ProductInvoice(productInvoiceList.get(i)));
+            this.totalPrice += productInvoiceList.get(i).price;
         }
-        return productInvoiceSet;
+        return productInvoices;
     }
 
-    public void addProduct(ProductInvoiceDTO productInvoiceDTO){
-        this.productInvoices.add(new ProductInvoice(productInvoiceDTO));
+    public void addProduct(ProductInvoice productInvoice){
+        this.productInvoices.add(productInvoice);
     }
-    public void removeProduct(ProductInvoiceDTO productInvoiceDTO){
-        this.productInvoices.remove(productInvoiceDTO);
+    public void removeProduct(ProductInvoice productInvoice){
+        this.productInvoices.remove(productInvoice);
     }
 }
 

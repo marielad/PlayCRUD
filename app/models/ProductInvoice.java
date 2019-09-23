@@ -1,5 +1,7 @@
 package models;
 
+import dto.InvoiceDTO;
+import dto.ProductDTO;
 import dto.ProductInvoiceDTO;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -14,7 +16,7 @@ public class ProductInvoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public  Long productInvoiceId;
+    public Long productInvoiceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "PRODUCT_ID_FK"))
@@ -31,11 +33,17 @@ public class ProductInvoice implements Serializable {
     public Double price;
 
     public ProductInvoice(){}
+    public ProductInvoice(int amount, Product product){
+        this.product = product;
+        this.amount = amount;
+        this.price = product.itemPrice * amount;
+    }
     public ProductInvoice(ProductInvoiceDTO productInvoiceDTO){
-        this.product = new Product(productInvoiceDTO.product);
-        this.invoice = new Invoice(productInvoiceDTO.invoice);
+        this.productInvoiceId = productInvoiceDTO.productInvoiceId;
+        this.invoice = productInvoiceDTO.invoice;
+        this.product = new Product(productInvoiceDTO.product.productId);
         this.amount = productInvoiceDTO.amount;
-        this.price = productInvoiceDTO.price;
+        this.price = productInvoiceDTO.product.itemPrice * productInvoiceDTO.amount;
     }
 
 }

@@ -1,20 +1,17 @@
 package controllers;
 
 import dao.InvoiceDao;
-import dto.InvoiceDTO;
-import dto.ProductDTO;
+import dao.ProductDao;
 import dto.ProductInvoiceDTO;
 import models.Invoice;
+import models.Product;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.*;
 import views.html.*;
 
 import javax.inject.Inject;
-import javax.persistence.Query;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 public class InvoiceController extends Controller {
@@ -33,32 +30,18 @@ public class InvoiceController extends Controller {
 
     @Transactional
     public Result read() {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.productName = "pan";
-        productDTO.itemPrice = 1.00;
-        productDTO.productInvoiceDTOList = new ArrayList<>();
+        Product product = new Product(1L, "pan", 1.00);
+        Invoice invoice = new Invoice();
 
-        InvoiceDTO invoiceDTO = new InvoiceDTO();
-        invoiceDTO.invoiceDate= new Date();
-        invoiceDTO.productInvoiceDTOList = new ArrayList<>();
+        ProductInvoiceDTO productInvoice = new ProductInvoiceDTO(4, invoice, product);
+        ProductInvoiceDTO productInvoice2 = new ProductInvoiceDTO(2,invoice, product);
 
+        List<ProductInvoiceDTO> productInvoices = new ArrayList<>();
+        productInvoices.add(productInvoice);
+        productInvoices.add(productInvoice2);
 
-        ProductInvoiceDTO productInvoiceDTO = new ProductInvoiceDTO();
-        productInvoiceDTO.product = productDTO;
-        productInvoiceDTO.invoice = invoiceDTO;
-        productInvoiceDTO.amount = 4;
-        productInvoiceDTO.price = productDTO.itemPrice * productInvoiceDTO.amount;
-
-        invoiceDTO.totalPrice = productInvoiceDTO.price;
-        productDTO.productInvoiceDTOList.add(productInvoiceDTO);
-        invoiceDTO.productInvoiceDTOList.add(productInvoiceDTO);
-
-        System.out.println(invoiceDTO.productInvoiceDTOList.get(0).price);
-
-        Invoice invoice = new Invoice(invoiceDTO);
+        invoice.addProducts(productInvoices);
         invoiceDao.create(invoice);
-
-        Query query = jpaApi.em().createQuery("Select * from  ");
 
         return ok(read.render());
     }

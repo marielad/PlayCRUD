@@ -1,12 +1,15 @@
 package dao.impl;
 
 import dao.InvoiceDao;
+import dto.ProductInvoiceDTO;
 import models.Invoice;
+import models.ProductInvoice;
 import play.Logger;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 import java.util.List;
 

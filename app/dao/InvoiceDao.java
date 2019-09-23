@@ -1,6 +1,7 @@
 package dao;
 
 import models.Invoice;
+import models.ProductInvoice;
 
 import java.util.List;
 
