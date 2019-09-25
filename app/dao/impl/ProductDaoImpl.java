@@ -18,14 +18,14 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> findAll() {
-        Query query = jpaApi.em().createQuery("Select * from Product");
+        Query query = jpaApi.em().createQuery("from Product");
         return query.getResultList();
     }
 
     @Override
     public Product findByPk(Long id) {
         try {
-            return jpaApi.em().find(( Class<Product>) resolveTypeArguments(getClass(), ProductDaoImpl.class)[0], id);
+            return jpaApi.em().find(Product.class, id);
         } catch (Exception ex){
             Logger.error("(findByPk) Error: ", ex);
             jpaApi.em().getTransaction().rollback();

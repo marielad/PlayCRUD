@@ -19,13 +19,19 @@ public class ProductInvoiceDaoImpl implements ProductInvoiceDao {
 
     @Override
     public List<ProductInvoice> findAll() {
-        Query query = jpaApi.em().createQuery("Select * from ProductInvoice");
+        Query query = jpaApi.em().createQuery("from ProductInvoice");
         return query.getResultList();
     }
 
     @Override
-    public  List<Double> findByInvoiceId(Long id) {
-        Query query = jpaApi.em().createQuery("Select price from ProductInvoice where invoiceId= :id");
+    public List<Double> priceByInvoiceId(Long id) {
+        Query query = jpaApi.em().createQuery("SELECT price from ProductInvoice where invoiceId= :id");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Product> productsByInvoiceId(Long id) {
+        Query query = jpaApi.em().createQuery("SELECT product from ProductInvoice where invoice_id= :id").setParameter("id", id);
         return query.getResultList();
     }
 }

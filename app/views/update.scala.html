@@ -1,0 +1,36 @@
+@(invoice : dto.InvoiceDTO, productInvoices : java.util.List[dto.ProductDTO])
+@main("Editar"){
+
+<div class="margen5">
+    <h2>Editar</h2>
+
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input disabled value=@invoice.invoiceId id="invoice_id" type="text" class="validate">
+                    <label for="invoice_id">Id de Factura</label>
+                </div>
+                <div class="input-field col s6">
+                    <input disabled value=@invoice.invoiceDate id="invoice_date" type="text" class="validate">
+                    <label for="invoice_date">Fecha</label>
+                </div>
+            </div>
+            <div class="row">
+                @for(product <- invoice.productInvoiceDTOList){ 
+                    <div class="input-field col s12">
+                        <input value=@product.productInvoiceId id="productName" type="text" class="validate">
+                    </div>
+                }
+    </div>
+
+    <div class="row">
+        <div class="input-field col s6">
+            <input disabled value=@invoice.totalPrice id="total_price" type="text" class="validate">
+            <label for="total_price">Precio</label>
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+}

@@ -24,3 +24,9 @@ footer{
 .margen5{
     margin: 5%;
 }
+
+.edit{
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-end;
+}

@@ -1,11 +1,14 @@
 package controllers;
 
 import dao.InvoiceDao;
+import dao.ProductDao;
+import dao.ProductInvoiceDao;
 import dto.InvoiceDTO;
 import dto.ProductDTO;
 import dto.ProductInvoiceDTO;
 import models.Invoice;
 import models.Product;
+import models.ProductInvoice;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.*;
@@ -19,6 +22,12 @@ public class InvoiceController extends Controller {
 
     @Inject
     InvoiceDao invoiceDao;
+
+    @Inject
+    ProductDao productDao;
+
+    @Inject
+    ProductInvoiceDao productInvoiceDao;
 
     @Inject
     protected JPAApi jpaApi;
@@ -70,8 +79,9 @@ public class InvoiceController extends Controller {
         return ok(read.render(invoiceDTOList));
     }
     @Transactional
-    public Result update() { 
-        return ok(update.render());
+    public Result update() {
+
+        return ok();
     }
     @Transactional
     public Result delete(Long id) {
@@ -82,10 +92,21 @@ public class InvoiceController extends Controller {
     }
     @Transactional
     public Result edit(Long id) {
-        return ok(delete.render());
+        Invoice invoice = invoiceDao.findByPk(id);
+        InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
+
+        List<Product> products = productInvoiceDao.productsByInvoiceId(id);
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product: products) {
+            productDTOS.add(new ProductDTO(product));
+        }
+
+        return ok(update.render(invoiceDTO,productDTOS));
     }
     @Transactional
     public Result show(Long id) {
+
+
         return ok(delete.render());
     }
 }
