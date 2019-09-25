@@ -6,7 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,17 +24,21 @@ public class Invoice  implements Serializable {
     public Double totalPrice = 0.00;
 
     @Column(name = "invoice_date", columnDefinition = "date", nullable = false)
-    public Date invoiceDate = new Date();
+    public LocalDate invoiceDate;
 
     @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<ProductInvoice> productInvoices = new HashSet<>();
 
     public Invoice(){}
+    public Invoice(InvoiceDTO invoiceDTO){
+        this.invoiceId = invoiceDTO.invoiceId;
+        this.invoiceDate = invoiceDTO.invoiceDate;
+        this.totalPrice = invoiceDTO.totalPrice;
+    }
 
     public Set<ProductInvoice> addProducts(List<ProductInvoiceDTO> productInvoiceList){
         for (int i = 0; i < productInvoiceList.size(); i++) {
             this.productInvoices.add(new ProductInvoice(productInvoiceList.get(i)));
-            this.totalPrice += productInvoiceList.get(i).price;
         }
         return productInvoices;
     }

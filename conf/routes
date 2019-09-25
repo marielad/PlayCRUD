@@ -6,11 +6,11 @@
 GET     /                             controllers.HomeController.index
 
 GET     /invoice                      controllers.InvoiceController.read()
-#GET    /invoice/:id                  controllers.InvoiceController.show(id : Integer)
-#GET    /invoice/edit/:id             controllers.InvoiceController.edit(id: Integer)
-PUT     /invoice/edit                 controllers.InvoiceController.update()
+GET     /invoice/:id                  controllers.InvoiceController.show(id : Long)
+GET     /invoice/edit/:id             controllers.InvoiceController.edit(id: Long)
+POST    /invoice/edit                 controllers.InvoiceController.update()
 POST    /invoice/create               controllers.InvoiceController.create()
-DELETE  /invoice/delete/:id           controllers.InvoiceController.delete(id: Integer)
+GET     /invoice/delete/:id           controllers.InvoiceController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                                controllers.Assets.at(file)

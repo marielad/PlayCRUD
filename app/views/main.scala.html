@@ -19,7 +19,7 @@
     <link type="text/css" rel="stylesheet" href='@routes.Assets.versioned("css/materialize.min.css")'
         media="screen,projection" />
 
-    <link rel='stylesheet' type='text/css' href='@routes.Assets.at("css/styles.css")'>
+    <link rel='stylesheet' type='text/css' href='@routes.Assets.at("css/styles.css")' media="screen,projection">
 </head>
 
 <body>
@@ -30,12 +30,11 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="@routes.HomeController.index()" class="brand-logo">Home</a>
+                <a href="@routes.HomeController.index()" class="brand-logo , title">Home</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="@routes.InvoiceController.read()">Create</a></li>
-                    <li><a href="@routes.InvoiceController.read()">Read</a></li>
-                    <li><a href="@routes.InvoiceController.read()">Update</a></li>
-                    <li><a href="@routes.InvoiceController.read()">Delete</a></li>
+                    <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
+                    <li><a href="@routes.InvoiceController.read()">Productos</a></li>
+                    <li><a href="@routes.InvoiceController.read()"><i class="medium material-icons">shopping_cart</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -43,7 +42,7 @@
 
     @*Content*@
     <section class="content">@content</section>
-    
+
     <footer class="page-footer">
         <div class="container">
             <div class="row">

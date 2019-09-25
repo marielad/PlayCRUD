@@ -19,11 +19,11 @@ public class ProductInvoiceDTO {
         this.amount = amount;
         this.price = product.itemPrice * amount;
     }
-//    public ProductInvoiceDTO(ProductInvoice productInvoiceDTO, Invoice invoice, Product product){
-//        this.productInvoiceId = productInvoiceDTO.productInvoiceId;
-//        this.invoice = invoice;
-//        this.product = product;
-//        this.amount = productInvoiceDTO.amount;
-//        this.price = product.itemPrice * productInvoiceDTO.amount;
-//    }
+    public ProductInvoiceDTO(ProductInvoice productInvoiceDTO){
+        this.productInvoiceId = productInvoiceDTO.productInvoiceId;
+        this.invoice = invoice;
+        this.product = product;
+        this.amount = productInvoiceDTO.amount;
+        this.price = product.itemPrice * productInvoiceDTO.amount;
+    }
 }

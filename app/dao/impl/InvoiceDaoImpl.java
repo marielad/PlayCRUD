@@ -22,19 +22,20 @@ public class InvoiceDaoImpl implements InvoiceDao {
 
     @Override
     public List<Invoice> findAll() {
-        Query query = jpaApi.em().createQuery("Select * from Invoice");
-        return query.getResultList();
+        Query query = jpaApi.em().createQuery("from Invoice");
+        List<Invoice> invoiceList = query.getResultList();
+        return invoiceList;
     }
 
     @Override
     public Invoice findByPk(Long id) {
         try {
-            return jpaApi.em().find((Class<Invoice>) resolveTypeArguments(getClass(), InvoiceDaoImpl.class)[0], id);
+            return jpaApi.em().find(Invoice.class, id);
         } catch (Exception ex){
             Logger.error("(findByPk) Error: ", ex);
             jpaApi.em().getTransaction().rollback();
+            return null;
         }
-        return null;
     }
 
     @Override

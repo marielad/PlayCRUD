@@ -1,24 +1,29 @@
-@main("Read"){
-<div>
-    <h2>Invoices</h2>
+@(invoices: java.util.List[dto.InvoiceDTO])
+@main("Invoice History"){
+<div class="margen5">
+    <h2>Invoice History(Delete, Update)</h2>
 </div>
 
-<div>
+<div class="margen5">
     <table class="striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Total Price</th>
             </tr>
         </thead>
 
         <tbody>
+        @for(invoice <- invoices){
             <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
+                <td>@invoice.invoiceId</td>
+                <td>@invoice.invoiceDate</td>
+                <td>@invoice.totalPrice</td>
+                <td><a href="@routes.InvoiceController.edit(invoice.invoiceId)"><i class="tiny material-icons">edit</i></a></td>
+                <td><a href="@routes.InvoiceController.delete(invoice.invoiceId)"><i class="tiny material-icons">clear</i></a></td>
             </tr>
+        }
         </tbody>
     </table>
 </div>

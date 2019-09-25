@@ -1,4 +1,4 @@
-body {
+html, body {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -15,4 +15,12 @@ content {
 
 footer{
     height: 250px;
+}
+
+.title{
+    margin-left: 3%;
+}
+
+.margen5{
+    margin: 5%;
 }
