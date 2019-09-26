@@ -21,9 +21,9 @@ public class ProductInvoiceDTO {
     }
     public ProductInvoiceDTO(ProductInvoice productInvoiceDTO){
         this.productInvoiceId = productInvoiceDTO.productInvoiceId;
-        this.invoice = invoice;
-        this.product = product;
+        this.invoice = productInvoiceDTO.invoice;
+        this.product = productInvoiceDTO.product;
         this.amount = productInvoiceDTO.amount;
-        this.price = product.itemPrice * productInvoiceDTO.amount;
+        this.price = productInvoiceDTO.product.itemPrice * productInvoiceDTO.amount;
     }
 }

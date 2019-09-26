@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductInvoiceDao {
     List<ProductInvoice> findAll();
-    List<Double> priceByInvoiceId(Long id);
+    List<ProductInvoice> findByInvoiceId(Long id);
     List<Product> productsByInvoiceId(Long id);
 
 }

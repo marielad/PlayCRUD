@@ -34,14 +34,18 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
                     <li><a href="@routes.InvoiceController.read()">Productos</a></li>
-                    <li><a href="@routes.InvoiceController.read()"><i class="medium material-icons">shopping_cart</i></a></li>
+                    <li><a href="@routes.InvoiceController.read()"><i
+                                class="medium material-icons">shopping_cart</i></a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
     @*Content*@
-    <section class="content">@content</section>
+    <section class="content">
+        <div class="container">@content</div>
+        </div>
+    </section>
 
     <footer class="page-footer">
         <div class="container">

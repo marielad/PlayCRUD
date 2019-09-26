@@ -95,18 +95,27 @@ public class InvoiceController extends Controller {
         Invoice invoice = invoiceDao.findByPk(id);
         InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
 
-        List<Product> products = productInvoiceDao.productsByInvoiceId(id);
-        List<ProductDTO> productDTOS = new ArrayList<>();
-        for (Product product: products) {
-            productDTOS.add(new ProductDTO(product));
+        List<ProductInvoice> productInvoices = productInvoiceDao.findByInvoiceId(id);
+        List<ProductInvoiceDTO> productInvoiceDTOS = new ArrayList<>();
+        for (ProductInvoice productInvoice: productInvoices) {
+            productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
         }
 
-        return ok(update.render(invoiceDTO,productDTOS));
+        System.out.println(productInvoiceDTOS.get(0).product.productName);
+        return ok(update.render(invoiceDTO,productInvoiceDTOS));
     }
     @Transactional
     public Result show(Long id) {
+        Invoice invoice = invoiceDao.findByPk(id);
+        InvoiceDTO invoiceDTO = new InvoiceDTO(invoice);
 
+        List<ProductInvoice> productInvoices = productInvoiceDao.findByInvoiceId(id);
+        List<ProductInvoiceDTO> productInvoiceDTOS = new ArrayList<>();
+        for (ProductInvoice productInvoice: productInvoices) {
+            productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
+        }
 
-        return ok(delete.render());
+        System.out.println(productInvoiceDTOS.get(0).product.productName);
+        return ok(show.render(invoiceDTO,productInvoiceDTOS));
     }
 }
