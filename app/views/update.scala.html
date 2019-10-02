@@ -1,58 +1,64 @@
-@(invoice : dto.InvoiceDTO, form: play.data.Form[java.util.List[dto.ProductInvoiceDTO]])
-@main("Editar"){
+@(invoice : dto.InvoiceDTO, productInvoices: java.util.List[dto.ProductInvoiceDTO])
+
+@head = {
+    <script type="text/javascript" src='@routes.Assets.at("js/update.js")'></script>
+}
+
+@main("Editar", head){
 
 <div class="editar">
     <h2>Editar</h2>
 
     <div class="row">
-        @helper.form(action = routes.InvoiceController.update(), 'class -> "col s12 m12 l12") {
-        <div class="row">
-                <div class="input-field col s6">
-                    <input disabled value=@invoice.invoiceId id="invoice_id" type="text" class="validate">
-                    <label for="invoice_id">Id de Factura</label>
+       <form action="">
+            <div class="row">
+                    <div class="input-field col s6">
+                        <input disabled value=@invoice.invoiceId id="invoice_id" type="text" class="validate">
+                        <label for="invoice_id">Id de Factura</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input disabled value=@invoice.invoiceDate id="invoice_date" type="text" class="validate">
+                        <label for="invoice_date">Fecha</label>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label>Producto</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <label>Precio</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <label>Cantidad</label>
+                    </div>
+                </div>
+                @for(productInvoice <- productInvoices){
+                    <div class="row">
+                            <div class="input-field col s4">
+                                <input disabled value=@productInvoice.product.productName type="text" class="validate">
+                            </div>
+                            <div class="input-field col s4">
+                                <input disabled value=@productInvoice.price type="text" class="validate">
+                            </div>
+                            <div class="input-field col s4">
+                                <input value=@productInvoice.amount type="number" min="0" class="validate" onchange="modificarCantidad(@productInvoice.productInvoiceId, value, '@routes.InvoiceController.editOne()')">
+                            </div>
+                    </div>
+                }
+
+            <div class="row">
                 <div class="input-field col s6">
-                    <input disabled value=@invoice.invoiceDate id="invoice_date" type="text" class="validate">
-                    <label for="invoice_date">Fecha</label>
+                    <input disabled value=@invoice.totalPrice id="total_price" type="text" class="validate">
+                    <label for="total_price">Precio</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s4">
-                    <label>Producto</label>
-                </div>
-                <div class="input-field col s4">
-                    <label>Precio</label>
-                </div>
-                <div class="input-field col s4">
-                    <label>Cantidad</label>
+                <div class="col s12 offset-s9">
+                    <button class="btn waves-effect waves-light" onclick="update('@routes.InvoiceController.update()')">Editar<i class="material-icons right">send</i></button>
+                    <button class="btn waves-effect waves-light blue-grey lighten-4">Cancelar</button>
                 </div>
             </div>
-            @for(productInvoice <- productInvoices){ <div class="row">
-                <div class="input-field col s4">
-                    <input disabled value=@productInvoice.product.productName type="text" class="validate">
-                </div>
-                <div class="input-field col s4">
-                    <input disabled value=@productInvoice.price type="text" class="validate">
-                </div>
-                <div class="input-field col s4">
-                    <input value=@productInvoice.amount type="number" min="0" class="validate">
-                </div>
-    </div>
-    }
-
-    <div class="row">
-        <div class="input-field col s6">
-            <input disabled value=@invoice.totalPrice id="total_price" type="text" class="validate">
-            <label for="total_price">Precio</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 offset-s9">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Editar<i class="material-icons right">send</i></button>
-            <button class="btn waves-effect waves-light blue-grey lighten-4">Cancelar</button>
-        </div>
-    </div>
-    }
+        </form>
 </div>
 </div>
 </div>

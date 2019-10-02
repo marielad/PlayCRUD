@@ -17,13 +17,17 @@ public class ProductInvoiceDTO {
         this.invoice = invoice;
         this.product = product;
         this.amount = amount;
-        this.price = product.itemPrice * amount;
+        this.price = getPrice(product,amount);
     }
     public ProductInvoiceDTO(ProductInvoice productInvoiceDTO){
         this.productInvoiceId = productInvoiceDTO.productInvoiceId;
         this.invoice = productInvoiceDTO.invoice;
         this.product = productInvoiceDTO.product;
         this.amount = productInvoiceDTO.amount;
-        this.price = productInvoiceDTO.product.itemPrice * productInvoiceDTO.amount;
+        this.price = getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
+    }
+
+    public Double getPrice(Product product, int amount) {
+        return product.itemPrice * amount;
     }
 }

@@ -4,7 +4,7 @@
 * two arguments, a `String` for the title of the page and an `Html`
 * object to insert into the body of the page.
 *@
-@(title: String)(content: Html)
+@(title: String, head: Html = Html(""))(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +20,8 @@
         media="screen,projection" />
 
     <link rel='stylesheet' type='text/css' href='@routes.Assets.at("css/styles.css")' media="screen,projection">
+
+    @head
 </head>
 
 <body>
@@ -34,8 +36,11 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
                     <li><a href="@routes.InvoiceController.read()">Productos</a></li>
-                    <li><a href="@routes.InvoiceController.read()"><i
-                                class="medium material-icons">shopping_cart</i></a></li>
+                    <li><a href="@routes.InvoiceController.read()">
+                        <i class="medium material-icons">shopping_cart
+                            <small class="notification-badge accent-2">2</small>
+                        </i>
+                        </a></li>
                 </ul>
             </div>
         </nav>

@@ -8,7 +8,8 @@ GET     /                             controllers.HomeController.index
 GET     /invoice                      controllers.InvoiceController.read()
 GET     /invoice/:id                  controllers.InvoiceController.show(id : Long)
 GET     /invoice/edit/:id             controllers.InvoiceController.edit(id: Long)
-POST    /invoice/edit                 controllers.InvoiceController.update()
+POST    /invoice/editOne/             controllers.InvoiceController.editOne()
+POST    /invoice/update/              controllers.InvoiceController.update()
 POST    /invoice/create               controllers.InvoiceController.create()
 GET     /invoice/delete/:id           controllers.InvoiceController.delete(id: Long)
 

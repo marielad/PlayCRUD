@@ -24,6 +24,16 @@ public class ProductInvoiceDaoImpl implements ProductInvoiceDao {
     }
 
     @Override
+    public ProductInvoice findById(Long id) {
+        try {
+            return jpaApi.em().find(ProductInvoice.class, id);
+        } catch (Exception ex){
+            Logger.error("(findByPk) Error: ", ex);
+            jpaApi.em().getTransaction().rollback();
+            return null;
+        }
+    }
+    @Override
     public List<ProductInvoice> findByInvoiceId(Long id) {
         Query query = jpaApi.em().createQuery("from ProductInvoice where invoice_id= :id").setParameter("id", id);
         return query.getResultList();

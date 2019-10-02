@@ -17,6 +17,22 @@ footer{
     height: 250px;
 }
 
+small {
+    font-size: 0.8rem;
+}
+
 .title{
     margin-left: 3%;
 }
+
+.notification-badge {
+    font-family: "Roboto", sans-serif;
+    position: relative;
+    right: 5px;
+    top: -20px;
+    color: #ffffff;
+    background-color: #00bcd4;
+    margin: 0 -.8em;
+    border-radius: 50%;
+    padding: 2px 5px;
+  }

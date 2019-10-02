@@ -1,13 +1,12 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import dao.InvoiceDao;
 import dao.ProductDao;
 import dao.ProductInvoiceDao;
 import dto.InvoiceDTO;
-import dto.ProductDTO;
 import dto.ProductInvoiceDTO;
 import models.Invoice;
-import models.Product;
 import models.ProductInvoice;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
@@ -31,6 +30,8 @@ public class InvoiceController extends Controller {
 
     @Inject
     protected JPAApi jpaApi;
+
+    private List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
 
     @Transactional
     public Result create() {
@@ -78,18 +79,7 @@ public class InvoiceController extends Controller {
 
         return ok(read.render(invoiceDTOList));
     }
-    @Transactional
-    public Result update() {
 
-        return ok();
-    }
-    @Transactional
-    public Result delete(Long id) {
-        System.out.println(id);
-        Invoice invoice = invoiceDao.findByPk(id);
-        invoiceDao.delete(invoice);
-        return redirect(routes.InvoiceController.read());
-    }
     @Transactional
     public Result edit(Long id) {
         Invoice invoice = invoiceDao.findByPk(id);
@@ -101,7 +91,6 @@ public class InvoiceController extends Controller {
             productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
         }
 
-        System.out.println(productInvoiceDTOS.get(0).product.productName);
         return ok(update.render(invoiceDTO,productInvoiceDTOS));
     }
     @Transactional
@@ -115,7 +104,49 @@ public class InvoiceController extends Controller {
             productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
         }
 
-        System.out.println(productInvoiceDTOS.get(0).product.productName);
         return ok(show.render(invoiceDTO,productInvoiceDTOS));
     }
+
+    @Transactional
+    public Result editOne() {
+        JsonNode json = request().body().asJson();
+        Long id = json.findPath("productInvoiceId").asLong();
+        int value = json.findPath("value").asInt();
+
+        ProductInvoiceDTO productInvoiceDTO = new ProductInvoiceDTO(productInvoiceDao.findById(id));
+        productInvoiceDTO.amount = value;
+        productInvoiceDTO.price = productInvoiceDTO.getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
+
+        productInvoiceDTOList.add(productInvoiceDTO);
+
+        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
+        return ok();
+    }
+
+    @Transactional
+    public Result update() {
+        System.out.println("update");
+
+        if (productInvoiceDTOList.isEmpty()){
+            System.out.println("Nothing to update");
+        }else{
+            for (ProductInvoiceDTO productInvoiceDTO: productInvoiceDTOList) {
+                ProductInvoice productInvoice = productInvoiceDao.findById(productInvoiceDTO.productInvoiceId);
+                productInvoice.amount = productInvoiceDTO.amount;
+                productInvoice.price = productInvoiceDTO.price;
+                System.out.println(productInvoice.productInvoiceId + " price " +productInvoice.price+" amount "+productInvoice.amount);
+            }
+            System.out.println("Updateo done");
+        }
+        return ok();
+    }
+    @Transactional
+    public Result delete(Long id) {
+        System.out.println(id);
+        Invoice invoice = invoiceDao.findByPk(id);
+        invoiceDao.delete(invoice);
+        return redirect(routes.InvoiceController.read());
+    }
+
+
 }
