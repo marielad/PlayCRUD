@@ -137,6 +137,7 @@ public class InvoiceController extends Controller {
                 System.out.println(productInvoice.productInvoiceId + " price " +productInvoice.price+" amount "+productInvoice.amount);
             }
             System.out.println("Updateo done");
+            productInvoiceDTOList.clear();
         }
         return ok();
     }
