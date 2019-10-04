@@ -1,9 +1,7 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-
-# An example controller showing a sample home page
-GET     /                             controllers.HomeController.index
+GET     /                             controllers.InvoiceController.shop()
 
 GET     /invoice                      controllers.InvoiceController.read()
 GET     /invoice/:id                  controllers.InvoiceController.show(id : Long)
@@ -11,6 +9,8 @@ GET     /invoice/edit/:id             controllers.InvoiceController.edit(id: Lon
 POST    /invoice/editOne/             controllers.InvoiceController.editOne()
 POST    /invoice/update/              controllers.InvoiceController.update()
 POST    /invoice/create               controllers.InvoiceController.create()
+GET     /invoice/cart/                controllers.InvoiceController.cart()
+GET     /invoice/shop/                controllers.InvoiceController.shop()
 GET     /invoice/delete/:id           controllers.InvoiceController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

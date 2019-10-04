@@ -32,11 +32,10 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="@routes.HomeController.index()" class="brand-logo , title">Home</a>
+                <a href="@routes.InvoiceController.shop()" class="brand-logo , title">Tienda</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
-                    <li><a href="@routes.InvoiceController.read()">Productos</a></li>
-                    <li><a href="@routes.InvoiceController.read()">
+                    <li><a href="@routes.InvoiceController.cart()">
                         <i class="medium material-icons">shopping_cart
                             <small class="notification-badge accent-2">2</small>
                         </i>
@@ -62,13 +61,6 @@
                     </p>
                 </div>
                 <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a href="@routes.InvoiceController.read()">Create</a></li>
-                        <li><a href="@routes.InvoiceController.read()">Read</a></li>
-                        <li><a href="@routes.InvoiceController.read()">Update</a></li>
-                        <li><a href="@routes.InvoiceController.read()">Delete</a></li>
-                    </ul>
                 </div>
             </div>
         </div>

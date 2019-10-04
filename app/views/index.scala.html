@@ -1,4 +1,32 @@
-@main("Index"){
-<h4>Comprar</h4>
+@(products: java.util.List[dto.ProductDTO])
+@main("Tienda"){
+<h2>Compra</h2>
+
+<table class="striped centered">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Añadir al carro</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @for(product <- products){
+    <tr>
+        <td>@product.productName</td>
+        <td>@product.itemPrice €</td>
+        <td>
+            <div class="amount">
+                <a onclick="substract()"><i class="amount-symbols">-</i></a>
+                <p>1</p>
+                <a onclick="add()"><i class="amount-symbols">+</i></a></td>
+            </div>
+        <td><a href="#!"><i class="material-icons">add_shopping_cart</i></a></td>
+    </tr>
+    }
+    </tbody>
+</table>
 
 }

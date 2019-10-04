@@ -35,4 +35,14 @@ small {
     margin: 0 -.8em;
     border-radius: 50%;
     padding: 2px 5px;
-  }
+}
+
+.amount{
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.amount-symbols{
+    font-size: 25px;
+}

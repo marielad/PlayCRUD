@@ -5,8 +5,10 @@ import dao.InvoiceDao;
 import dao.ProductDao;
 import dao.ProductInvoiceDao;
 import dto.InvoiceDTO;
+import dto.ProductDTO;
 import dto.ProductInvoiceDTO;
 import models.Invoice;
+import models.Product;
 import models.ProductInvoice;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
@@ -139,7 +141,7 @@ public class InvoiceController extends Controller {
             System.out.println("Updateo done");
             productInvoiceDTOList.clear();
         }
-        return ok();
+        return redirect(routes.InvoiceController.read());
     }
     @Transactional
     public Result delete(Long id) {
@@ -149,5 +151,22 @@ public class InvoiceController extends Controller {
         return redirect(routes.InvoiceController.read());
     }
 
+    @Transactional
+    public Result cart() {
+        System.out.println("cart");
 
+        return ok(create.render());
+    }
+    @Transactional
+    public Result shop() {
+        System.out.println("shop");
+
+        List<Product> productList = productDao.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for (Product product: productList) {
+            productDTOS.add(new ProductDTO(product));
+        }
+        return ok(index.render(productDTOS));
+    }
 }
