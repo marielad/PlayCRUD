@@ -41,7 +41,8 @@
                                 <input disabled value=@productInvoice.price type="text" class="validate">
                             </div>
                             <div class="input-field col s4">
-                                <input value=@productInvoice.amount type="number" min="0" class="validate" onchange="modificarCantidad(@productInvoice.productInvoiceId, value, '@routes.InvoiceController.editOne()')">
+                                <input value=@productInvoice.amount type="number" min="0" class="validate" 
+                                onchange="modificarCantidad(@productInvoice.productInvoiceId, value, '@routes.InvoiceController.editOne()')">
                             </div>
                     </div>
                 }

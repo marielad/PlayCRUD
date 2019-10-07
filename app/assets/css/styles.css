@@ -39,10 +39,18 @@ small {
 
 .amount{
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: center;
+}
+.amount-div{
+    display: flex;
+    flex-flow: row;
+    justify-items: space-around;
+    align-items: center;
+    width: 60px;
 }
 
 .amount-symbols{
     font-size: 25px;
+    width: 20%;
+    text-align: right;
 }

@@ -1,5 +1,10 @@
 @(products: java.util.List[dto.ProductDTO])
-@main("Tienda"){
+
+@head = {
+    <script type="text/javascript" src='@routes.Assets.at("js/create.js")'></script>
+}
+
+@main("Tienda", head){
 <h2>Compra</h2>
 
 <table class="striped centered">
@@ -17,13 +22,14 @@
     <tr>
         <td>@product.productName</td>
         <td>@product.itemPrice €</td>
-        <td>
-            <div class="amount">
-                <a onclick="substract()"><i class="amount-symbols">-</i></a>
-                <p>1</p>
-                <a onclick="add()"><i class="amount-symbols">+</i></a></td>
+        <td class="amount">
+            <div class="amount-div">
+                <a href="#!" onclick="substract(amount@product.productId)"><i class="amount-symbols">-</i></a>
+                <input disabled type="number" value="1" class="amount-symbols" id="amount@product.productId"></input>
+                <a href="#!" onclick="add(amount@product.productId)"><i class="amount-symbols">+</i></a>
             </div>
-        <td><a href="#!"><i class="material-icons">add_shopping_cart</i></a></td>
+        </td>
+        <td><a href="#!" onclick="addToCart(amount@product.productId, '@routes.InvoiceController.addToCart()')" ><i class="material-icons">add_shopping_cart</i></a></td>
     </tr>
     }
     </tbody>

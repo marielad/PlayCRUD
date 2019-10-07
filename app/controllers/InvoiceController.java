@@ -36,43 +36,7 @@ public class InvoiceController extends Controller {
     private List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
 
     @Transactional
-    public Result create() {
-//        ProductDTO productDTO = new ProductDTO(1L, "pan", 1.00);
-//        Product product = new Product(productDTO);
-//
-//        InvoiceDTO invoiceDTO = new InvoiceDTO(10.00);
-//        Invoice invoice = new Invoice(invoiceDTO);
-//
-//        ProductInvoiceDTO productInvoice = new ProductInvoiceDTO(4, invoice, product);
-//        ProductInvoiceDTO productInvoice2 = new ProductInvoiceDTO(6,invoice, product);
-//
-//        List<ProductInvoiceDTO> productInvoices = new ArrayList<>();
-//        productInvoices.add(productInvoice);
-//        productInvoices.add(productInvoice2);
-//
-//        invoice.addProducts(productInvoices);
-//        invoiceDao.create(invoice);
-        return ok(create.render());
-    }
-
-    @Transactional
     public Result read() {
-//        ProductDTO productDTO = new ProductDTO(1L, "pan", 1.00);
-//        Product product = new Product(productDTO);
-//
-//        InvoiceDTO invoiceDTO = new InvoiceDTO(10.00);
-//        Invoice invoice1 = new Invoice(invoiceDTO);
-//
-//        ProductInvoiceDTO productInvoice = new ProductInvoiceDTO(4, invoice1, product);
-//        ProductInvoiceDTO productInvoice2 = new ProductInvoiceDTO(6,invoice1, product);
-//
-//        List<ProductInvoiceDTO> productInvoices = new ArrayList<>();
-//        productInvoices.add(productInvoice);
-//        productInvoices.add(productInvoice2);
-//
-//        invoice1.addProducts(productInvoices);
-//        invoiceDao.create(invoice1);
-
         List<Invoice> invoiceList = invoiceDao.findAll();
         List<InvoiceDTO> invoiceDTOList = new ArrayList<>();
         for (Invoice invoice : invoiceList) {
@@ -152,11 +116,49 @@ public class InvoiceController extends Controller {
     }
 
     @Transactional
+    public Result addToCart() {
+        System.out.println("adToCart");
+        JsonNode json = request().body().asJson();
+        Long id = json.findPath("productId").asLong();
+        int value = json.findPath("value").asInt();
+
+        ProductInvoiceDTO productInvoiceDTO = new ProductInvoiceDTO();
+        productInvoiceDTO.product = productDao.findByPk(id);
+        productInvoiceDTO.amount = value;
+        productInvoiceDTO.price = productInvoiceDTO.getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
+
+        productInvoiceDTOList.add(productInvoiceDTO);
+
+        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
+        return ok();
+    }
+
+    @Transactional
     public Result cart() {
         System.out.println("cart");
-
         return ok(create.render());
     }
+
+    @Transactional
+    public Result create() {
+//        ProductDTO productDTO = new ProductDTO(1L, "pan", 1.00);
+//        Product product = new Product(productDTO);
+//
+//        InvoiceDTO invoiceDTO = new InvoiceDTO(10.00);
+//        Invoice invoice = new Invoice(invoiceDTO);
+//
+//        ProductInvoiceDTO productInvoice = new ProductInvoiceDTO(4, invoice, product);
+//        ProductInvoiceDTO productInvoice2 = new ProductInvoiceDTO(6,invoice, product);
+//
+//        List<ProductInvoiceDTO> productInvoices = new ArrayList<>();
+//        productInvoices.add(productInvoice);
+//        productInvoices.add(productInvoice2);
+//
+//        invoice.addProducts(productInvoices);
+//        invoiceDao.create(invoice);
+        return ok(create.render());
+    }
+
     @Transactional
     public Result shop() {
         System.out.println("shop");
