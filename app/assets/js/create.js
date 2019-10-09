@@ -16,12 +16,13 @@ function add(id){
 }
 
 function addToCart(id,route){
-    console.log("carrito");
+    console.log(id);
+    var value = parseInt(document.getElementById("amount"+id).value);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", route, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify({
-        productId: id.id,
-        value: id.value
+        productId: id,
+        value: value
     }));
 }

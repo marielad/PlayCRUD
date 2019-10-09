@@ -1,4 +1,48 @@
+@(productInvoices: java.util.List[dto.ProductInvoiceDTO])
 @main("Create"){
 <h2>Carrito compra</h2>
 
+<div class="Crear">
+    <h3>Detalles</h3>
+
+    @if(productInvoices.isEmpty){
+        <h4>Carrito Vacío</h4>
+    } else{
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label>Producto</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <label>Precio</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <label>Cantidad</label>
+                    </div>
+                </div>
+                @for(productInvoice <- productInvoices){ <div class="row">
+                <div class="input-field col s4">
+                    <input disabled value=@productInvoice.product.productName type="text" class="validate">
+                </div>
+                <div class="input-field col s4">
+                    <input disabled value=@productInvoice.price type="text" class="validate">
+                </div>
+                <div class="input-field col s4">
+                    <input disabled value=@productInvoice.amount type="number" min="0" class="validate">
+                </div>
+            </div>
+                }
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input disabled value="8" id="total_price" type="text" class="validate">
+                        <label for="total_price">Precio</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+</div>
 }

@@ -34,6 +34,60 @@ public class InvoiceController extends Controller {
     protected JPAApi jpaApi;
 
     private List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
+    private List<ProductInvoiceDTO> productInvoiceDTOCreateList = new ArrayList<>();
+
+
+    // CREATE
+    @Transactional
+    public Result shop() {
+        System.out.println("shop");
+
+        List<Product> productList = productDao.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for (Product product: productList) {
+            productDTOS.add(new ProductDTO(product));
+        }
+        return ok(index.render(productDTOS));
+    }
+
+    @Transactional
+    public Result addToCart() {
+        System.out.println("addToCart");
+        JsonNode json = request().body().asJson();
+        Long id = json.findPath("productId").asLong();
+        int value = json.findPath("value").asInt();
+
+        ProductInvoiceDTO productInvoiceDTO = new ProductInvoiceDTO();
+        productInvoiceDTO.product = productDao.findByPk(id);
+        productInvoiceDTO.amount = value;
+        productInvoiceDTO.price = productInvoiceDTO.getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
+
+        productInvoiceDTOCreateList.add(productInvoiceDTO);
+
+        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
+        return ok();
+    }
+
+    @Transactional
+    public Result cart() {
+        System.out.println("cart");
+        return ok(create.render(productInvoiceDTOCreateList));
+    }
+
+    @Transactional
+    public Result create() {
+//        JsonNode json = request().body().asJson();
+//        Double price = json.findPath("price").asDouble();
+//        InvoiceDTO invoiceDTO = new InvoiceDTO(price);
+//        Invoice invoice = new Invoice(invoiceDTO);
+//
+//        invoice.addProducts(productInvoiceDTOCreateList);
+//        invoiceDao.create(invoice);
+        return ok();
+    }
+
+    // READ
 
     @Transactional
     public Result read() {
@@ -45,6 +99,8 @@ public class InvoiceController extends Controller {
 
         return ok(read.render(invoiceDTOList));
     }
+
+    // UPDATE
 
     @Transactional
     public Result edit(Long id) {
@@ -107,68 +163,13 @@ public class InvoiceController extends Controller {
         }
         return redirect(routes.InvoiceController.read());
     }
+
+    // DELETE
     @Transactional
     public Result delete(Long id) {
         System.out.println(id);
         Invoice invoice = invoiceDao.findByPk(id);
         invoiceDao.delete(invoice);
         return redirect(routes.InvoiceController.read());
-    }
-
-    @Transactional
-    public Result addToCart() {
-        System.out.println("adToCart");
-        JsonNode json = request().body().asJson();
-        Long id = json.findPath("productId").asLong();
-        int value = json.findPath("value").asInt();
-
-        ProductInvoiceDTO productInvoiceDTO = new ProductInvoiceDTO();
-        productInvoiceDTO.product = productDao.findByPk(id);
-        productInvoiceDTO.amount = value;
-        productInvoiceDTO.price = productInvoiceDTO.getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
-
-        productInvoiceDTOList.add(productInvoiceDTO);
-
-        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
-        return ok();
-    }
-
-    @Transactional
-    public Result cart() {
-        System.out.println("cart");
-        return ok(create.render());
-    }
-
-    @Transactional
-    public Result create() {
-//        ProductDTO productDTO = new ProductDTO(1L, "pan", 1.00);
-//        Product product = new Product(productDTO);
-//
-//        InvoiceDTO invoiceDTO = new InvoiceDTO(10.00);
-//        Invoice invoice = new Invoice(invoiceDTO);
-//
-//        ProductInvoiceDTO productInvoice = new ProductInvoiceDTO(4, invoice, product);
-//        ProductInvoiceDTO productInvoice2 = new ProductInvoiceDTO(6,invoice, product);
-//
-//        List<ProductInvoiceDTO> productInvoices = new ArrayList<>();
-//        productInvoices.add(productInvoice);
-//        productInvoices.add(productInvoice2);
-//
-//        invoice.addProducts(productInvoices);
-//        invoiceDao.create(invoice);
-        return ok(create.render());
-    }
-
-    @Transactional
-    public Result shop() {
-        System.out.println("shop");
-
-        List<Product> productList = productDao.findAll();
-        List<ProductDTO> productDTOS = new ArrayList<>();
-
-        for (Product product: productList) {
-            productDTOS.add(new ProductDTO(product));
-        }
-        return ok(index.render(productDTOS));
     }
 }
