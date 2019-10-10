@@ -9,6 +9,7 @@ GET     /invoice/edit/:id             controllers.InvoiceController.edit(id: Lon
 POST    /invoice/editOne/             controllers.InvoiceController.editOne()
 POST    /invoice/update/              controllers.InvoiceController.update()
 POST    /invoice/create               controllers.InvoiceController.create()
+POST    /invoice/cancel               controllers.InvoiceController.cancel()
 POST    /invoice/addToCart            controllers.InvoiceController.addToCart()
 GET     /invoice/cart/                controllers.InvoiceController.cart()
 GET     /invoice/shop/                controllers.InvoiceController.shop()

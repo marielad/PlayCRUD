@@ -80,14 +80,20 @@ public class InvoiceController extends Controller {
 
     @Transactional
     public Result create() {
-//        JsonNode json = request().body().asJson();
-//        Double price = json.findPath("price").asDouble();
-//        InvoiceDTO invoiceDTO = new InvoiceDTO(price);
-//        Invoice invoice = new Invoice(invoiceDTO);
-//
-//        invoice.addProducts(productInvoiceDTOCreateList);
-//        invoiceDao.create(invoice);
+        InvoiceDTO invoiceDTO = new InvoiceDTO(totalPrice);
+        Invoice invoice = new Invoice(invoiceDTO);
+
+        invoice.addProducts(productInvoiceDTOCreateList);
+        invoiceDao.create(invoice);
         return ok();
+    }
+
+    @Transactional
+    public Result cancel() {
+        productInvoiceDTOCreateList.clear();
+        totalPrice = 0.0;
+
+        return redirect(routes.InvoiceController.cart());
     }
 
     // READ

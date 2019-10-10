@@ -27,3 +27,15 @@ function addToCart(id,route){
         value: value
     }));
 }
+
+function create(route) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", route, true);
+    xhttp.send();
+}
+
+function cancel(route) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", route, true);
+    xhttp.send();
+}

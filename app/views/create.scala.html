@@ -1,5 +1,10 @@
 @(totalPrice: Double ,productInvoices: java.util.List[dto.ProductInvoiceDTO])
-@main("Create"){
+
+@head = {
+    <script type="text/javascript" src='@routes.Assets.at("js/create.js")'></script>
+}
+
+@main("Create", head){
 <h2>Carrito compra</h2>
 
 <div class="Crear">
@@ -42,8 +47,8 @@
                     </div>
                 </div>
 
-                <button type="submit" onclick="create()">Confirmar compra</button>
-                <button onclick="cancel()"><i class="material-icons">remove_shopping_cart</i></button>
+                <button type="submit" onclick="create('@routes.InvoiceController.create()')">Confirmar compra</button>
+                <button onclick="cancel('@routes.InvoiceController.cancel()')"><i class="material-icons">remove_shopping_cart</i></button>
             </form>
         </div>
     }
