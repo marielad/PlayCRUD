@@ -1,4 +1,4 @@
-@(productInvoices: java.util.List[dto.ProductInvoiceDTO])
+@(totalPrice: Double ,productInvoices: java.util.List[dto.ProductInvoiceDTO])
 @main("Create"){
 <h2>Carrito compra</h2>
 
@@ -21,25 +21,29 @@
                         <label>Cantidad</label>
                     </div>
                 </div>
-                @for(productInvoice <- productInvoices){ <div class="row">
-                <div class="input-field col s4">
-                    <input disabled value=@productInvoice.product.productName type="text" class="validate">
-                </div>
-                <div class="input-field col s4">
-                    <input disabled value=@productInvoice.price type="text" class="validate">
-                </div>
-                <div class="input-field col s4">
-                    <input disabled value=@productInvoice.amount type="number" min="0" class="validate">
-                </div>
-            </div>
+                @for(productInvoice <- productInvoices){ 
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input disabled value=@productInvoice.product.productName type="text" class="validate">
+                        </div>
+                        <div class="input-field col s4">
+                            <input disabled value=@productInvoice.price type="text" class="validate">
+                        </div>
+                        <div class="input-field col s4">
+                            <input disabled value=@productInvoice.amount type="number" min="0" class="validate">
+                        </div>
+                    </div>
                 }
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <input disabled value="8" id="total_price" type="text" class="validate">
+                        <input disabled value="@totalPrice" id="total_price" type="text" class="validate">
                         <label for="total_price">Precio</label>
                     </div>
                 </div>
+
+                <button type="submit" onclick="create()">Confirmar compra</button>
+                <button onclick="cancel()"><i class="material-icons">remove_shopping_cart</i></button>
             </form>
         </div>
     }

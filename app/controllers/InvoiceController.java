@@ -35,7 +35,7 @@ public class InvoiceController extends Controller {
 
     private List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
     private List<ProductInvoiceDTO> productInvoiceDTOCreateList = new ArrayList<>();
-
+    private Double totalPrice = 0.0;
 
     // CREATE
     @Transactional
@@ -62,8 +62,11 @@ public class InvoiceController extends Controller {
         productInvoiceDTO.product = productDao.findByPk(id);
         productInvoiceDTO.amount = value;
         productInvoiceDTO.price = productInvoiceDTO.getPrice(productInvoiceDTO.product, productInvoiceDTO.amount);
+        totalPrice += productInvoiceDTO.price;
 
         productInvoiceDTOCreateList.add(productInvoiceDTO);
+
+        System.out.println(totalPrice);
 
         System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
         return ok();
@@ -72,7 +75,7 @@ public class InvoiceController extends Controller {
     @Transactional
     public Result cart() {
         System.out.println("cart");
-        return ok(create.render(productInvoiceDTOCreateList));
+        return ok(create.render(totalPrice, productInvoiceDTOCreateList));
     }
 
     @Transactional

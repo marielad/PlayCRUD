@@ -1,4 +1,5 @@
 function substract(id){
+    console.log(id);
     var patata = parseInt(document.getElementById(id.id).value);
     console.log(patata);
     if(patata > 1){
