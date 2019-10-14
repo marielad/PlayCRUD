@@ -47,8 +47,8 @@
                     </div>
                 </div>
 
-                <button type="submit" onclick="create('@routes.InvoiceController.create()')">Confirmar compra</button>
-                <button onclick="cancel('@routes.InvoiceController.cancel()')"><i class="material-icons">remove_shopping_cart</i></button>
+                <a class="btn waves-effect waves-light" type="submit" href='@routes.InvoiceController.create()'>Confirmar compra</a>
+                <a class="btn waves-effect waves-light blue-grey lighten-4" href='@routes.InvoiceController.cancel()'>Cancelar compra</a>
             </form>
         </div>
     }

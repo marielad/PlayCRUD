@@ -9,9 +9,3 @@ function modificarCantidad(productInvoiceId, value, route) {
     }));
 }
 
-function update(route) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", route, true);
-    xhttp.send();
-}
-

@@ -83,6 +83,9 @@ public class InvoiceController extends Controller {
         InvoiceDTO invoiceDTO = new InvoiceDTO(totalPrice);
         Invoice invoice = new Invoice(invoiceDTO);
 
+        for (ProductInvoiceDTO productInvoiceDTO: productInvoiceDTOCreateList) {
+            productInvoiceDTO.invoice = invoice;
+        }
         invoice.addProducts(productInvoiceDTOCreateList);
         invoiceDao.create(invoice);
         return ok();
@@ -157,7 +160,6 @@ public class InvoiceController extends Controller {
     @Transactional
     public Result update() {
         System.out.println("update");
-
         if (productInvoiceDTOList.isEmpty()){
             System.out.println("Nothing to update");
         }else{
@@ -166,10 +168,19 @@ public class InvoiceController extends Controller {
                 productInvoice.amount = productInvoiceDTO.amount;
                 productInvoice.price = productInvoiceDTO.price;
                 System.out.println(productInvoice.productInvoiceId + " price " +productInvoice.price+" amount "+productInvoice.amount);
+
+                Invoice invoice = invoiceDao.findByPk(productInvoice.invoice.invoiceId);
             }
             System.out.println("Updateo done");
             productInvoiceDTOList.clear();
         }
+        return redirect(routes.InvoiceController.read());
+    }
+
+    @Transactional
+    public Result cancelUpdate() {
+        System.out.println("Cancelar Update");
+        productInvoiceDTOList.clear();
         return redirect(routes.InvoiceController.read());
     }
 

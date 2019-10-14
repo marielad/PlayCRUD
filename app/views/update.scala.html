@@ -55,8 +55,8 @@
             </div>
             <div class="row">
                 <div class="col s12 offset-s9">
-                    <button class="btn waves-effect waves-light" onclick="update('@routes.InvoiceController.update()')">Editar<i class="material-icons right">send</i></button>
-                    <button class="btn waves-effect waves-light blue-grey lighten-4">Cancelar</button>
+                    <a class="btn waves-effect waves-light" href='@routes.InvoiceController.update()'>Editar<i class="material-icons right">send</i></a>
+                    <a class="btn waves-effect waves-light blue-grey lighten-4" href='@routes.InvoiceController.cancelUpdate()'>Cancelar</a>
                 </div>
             </div>
         </form>
