@@ -4,7 +4,7 @@
 * two arguments, a `String` for the title of the page and an `Html`
 * object to insert into the body of the page.
 *@
-@(title: String, head: Html = Html(""))(content: Html)
+@(title: String, cart: Integer = 0, head: Html = Html(""))(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +37,7 @@
                     <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
                     <li><a href="@routes.InvoiceController.cart()">
                         <i class="medium material-icons">shopping_cart
-                            <small class="notification-badge accent-2">2</small>
+                            <small class="notification-badge accent-2">@cart</small>
                         </i>
                         </a></li>
                 </ul>

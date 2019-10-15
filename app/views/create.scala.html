@@ -1,10 +1,10 @@
-@(totalPrice: Double ,productInvoices: java.util.List[dto.ProductInvoiceDTO])
+@(cart: Integer, totalPrice: Double ,productInvoices: java.util.List[dto.ProductInvoiceDTO])
 
 @head = {
     <script type="text/javascript" src='@routes.Assets.at("js/create.js")'></script>
 }
 
-@main("Create", head){
+@main("Create", cart, head){
 <h2>Carrito compra</h2>
 
 <div class="Crear">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <a class="btn waves-effect waves-light" type="submit" href='@routes.InvoiceController.create()'>Confirmar compra</a>
+                <a class="btn waves-effect waves-light" href='@routes.InvoiceController.create()'>Confirmar compra</a>
                 <a class="btn waves-effect waves-light blue-grey lighten-4" href='@routes.InvoiceController.cancel()'>Cancelar compra</a>
             </form>
         </div>

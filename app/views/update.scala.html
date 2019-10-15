@@ -1,10 +1,10 @@
-@(invoice : dto.InvoiceDTO, productInvoices: java.util.List[dto.ProductInvoiceDTO])
+@(cart: Integer, invoice : dto.InvoiceDTO, productInvoices: java.util.List[dto.ProductInvoiceDTO])
 
 @head = {
     <script type="text/javascript" src='@routes.Assets.at("js/update.js")'></script>
 }
 
-@main("Editar", head){
+@main("Editar", cart, head){
 
 <div class="editar">
     <h2>Editar</h2>

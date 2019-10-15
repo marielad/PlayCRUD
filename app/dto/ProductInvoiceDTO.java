@@ -4,6 +4,8 @@ import models.Invoice;
 import models.Product;
 import models.ProductInvoice;
 
+import java.util.List;
+
 public class ProductInvoiceDTO {
 
     public Long productInvoiceId;
