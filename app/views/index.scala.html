@@ -1,13 +1,13 @@
-@(cart: Integer,products: java.util.List[dto.ProductDTO])
+@(products: java.util.List[dto.ProductDTO])
 
 @head = {
     <script type="text/javascript" src='@routes.Assets.at("js/create.js")'></script>
 }
 
-@main("Tienda", cart, head){
+@main("Tienda", head){
 <h2>Compra</h2>
 
-<table class="striped centered">
+<table class="striped highlight">
     <thead>
     <tr>
         <th>Nombre</th>

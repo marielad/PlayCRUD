@@ -1,10 +1,10 @@
-@(cart: Integer, invoice : dto.InvoiceDTO, productInvoices: java.util.List[dto.ProductInvoiceDTO])
+@(invoice : dto.InvoiceDTO, productInvoices: java.util.List[dto.ProductInvoiceDTO])
 
 @head = {
     <script type="text/javascript" src='@routes.Assets.at("js/update.js")'></script>
 }
 
-@main("Editar", cart, head){
+@main("Editar", head){
 
 <div class="editar">
     <h2>Editar</h2>
@@ -38,18 +38,18 @@
                                 <input disabled value=@productInvoice.product.productName type="text" class="validate">
                             </div>
                             <div class="input-field col s4">
-                                <input disabled value=@productInvoice.price type="text" class="validate">
+                                <input disabled value=@productInvoice.price type="text" class="validate" id="price@productInvoice.productInvoiceId">
                             </div>
                             <div class="input-field col s4">
-                                <input value=@productInvoice.amount type="number" min="0" class="validate" 
-                                onchange="modificarCantidad(@productInvoice.productInvoiceId, value, '@routes.InvoiceController.editOne()')">
+                                <input value=@productInvoice.amount type="number" min="0" class="validate" id="amount@productInvoice.productInvoiceId"
+                                onchange="modificarCantidad(@productInvoice.productInvoiceId, @productInvoice.price, @productInvoice.amount, '@routes.InvoiceController.editOne()')">
                             </div>
                     </div>
                 }
 
             <div class="row">
                 <div class="input-field col s6">
-                    <input disabled value=@invoice.totalPrice id="total_price" type="text" class="validate">
+                    <input disabled value=@invoice.totalPrice id="totalPrice" type="text" class="validate">
                     <label for="total_price">Precio</label>
                 </div>
             </div>

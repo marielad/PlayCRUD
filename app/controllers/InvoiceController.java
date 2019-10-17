@@ -35,14 +35,14 @@ public class InvoiceController extends Controller {
 
     private List<ProductInvoiceDTO> productInvoiceDTOList = new ArrayList<>();
     private List<ProductInvoiceDTO> productInvoiceDTOCreateList = new ArrayList<>();
+    private InvoiceDTO updateInvoicedDto = new InvoiceDTO();
     private Double totalPrice = 0.0;
+    private Double updateTotalPrice = 0.0;
 
     // CREATE
     @Transactional
     public Result shop() {
         System.out.println("shop");
-
-        int cart = productInvoiceDTOCreateList.size();
 
         List<Product> productList = productDao.findAll();
         List<ProductDTO> productDTOS = new ArrayList<>();
@@ -50,7 +50,7 @@ public class InvoiceController extends Controller {
         for (Product product: productList) {
             productDTOS.add(new ProductDTO(product));
         }
-        return ok(index.render(cart, productDTOS));
+        return ok(index.render(productDTOS));
     }
 
     @Transactional
@@ -89,9 +89,8 @@ public class InvoiceController extends Controller {
     @Transactional
     public Result cart() {
         System.out.println("cart");
-        int cart = productInvoiceDTOCreateList.size();
 
-        return ok(create.render(cart, totalPrice, productInvoiceDTOCreateList));
+        return ok(create.render(totalPrice, productInvoiceDTOCreateList));
     }
 
     @Transactional
@@ -104,7 +103,7 @@ public class InvoiceController extends Controller {
         }
         invoice.addProducts(productInvoiceDTOCreateList);
         invoiceDao.create(invoice);
-        return ok();
+        return redirect(routes.InvoiceController.cart());
     }
 
     @Transactional
@@ -124,8 +123,7 @@ public class InvoiceController extends Controller {
         for (Invoice invoice : invoiceList) {
             invoiceDTOList.add(new InvoiceDTO(invoice));
         }
-        int cart = productInvoiceDTOCreateList.size();
-        return ok(read.render(cart, invoiceDTOList));
+        return ok(read.render(invoiceDTOList));
     }
 
     // UPDATE
@@ -140,8 +138,7 @@ public class InvoiceController extends Controller {
         for (ProductInvoice productInvoice: productInvoices) {
             productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
         }
-        int cart = productInvoiceDTOCreateList.size();
-        return ok(update.render(cart, invoiceDTO,productInvoiceDTOS));
+        return ok(update.render(invoiceDTO,productInvoiceDTOS));
     }
     @Transactional
     public Result show(Long id) {
@@ -153,8 +150,7 @@ public class InvoiceController extends Controller {
         for (ProductInvoice productInvoice: productInvoices) {
             productInvoiceDTOS.add(new ProductInvoiceDTO(productInvoice));
         }
-        int cart = productInvoiceDTOCreateList.size();
-        return ok(show.render(cart, invoiceDTO,productInvoiceDTOS));
+        return ok(show.render(invoiceDTO,productInvoiceDTOS));
     }
 
     @Transactional
@@ -169,25 +165,39 @@ public class InvoiceController extends Controller {
 
         productInvoiceDTOList.add(productInvoiceDTO);
 
-        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount);
+        System.out.println(productInvoiceDTO.productInvoiceId + " price " +productInvoiceDTO.price+" amount "+productInvoiceDTO.amount + " invoice "+ productInvoiceDTO.invoice.invoiceId);
         return ok();
     }
 
     @Transactional
     public Result update() {
-        System.out.println("update");
         if (productInvoiceDTOList.isEmpty()){
             System.out.println("Nothing to update");
         }else{
+            System.out.println("update");
+            updateInvoicedDto = new InvoiceDTO(invoiceDao.findByPk(productInvoiceDTOList.get(0).invoice.invoiceId));
+
+            System.out.println(updateInvoicedDto.totalPrice);
+
             for (ProductInvoiceDTO productInvoiceDTO: productInvoiceDTOList) {
                 ProductInvoice productInvoice = productInvoiceDao.findById(productInvoiceDTO.productInvoiceId);
                 productInvoice.amount = productInvoiceDTO.amount;
                 productInvoice.price = productInvoiceDTO.price;
                 System.out.println(productInvoice.productInvoiceId + " price " +productInvoice.price+" amount "+productInvoice.amount);
-
-                Invoice invoice = invoiceDao.findByPk(productInvoice.invoice.invoiceId);
-
             }
+
+            Double updateTotalPrice = 0.0;
+            List<ProductInvoice> productInvoices = productInvoiceDao.findByInvoiceId(updateInvoicedDto.invoiceId);
+            for (ProductInvoice productInvoice: productInvoices) {
+                updateTotalPrice += productInvoice.price;
+                System.out.println(updateTotalPrice);
+            }
+
+            Invoice invoice = invoiceDao.findByPk(updateInvoicedDto.invoiceId);
+            invoice.totalPrice = updateTotalPrice;
+
+            updateTotalPrice = 0.0;
+
             System.out.println("Updateo done");
             productInvoiceDTOList.clear();
         }
