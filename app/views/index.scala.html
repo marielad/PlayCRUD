@@ -7,7 +7,7 @@
 @main("Tienda", head){
 <h2>Compra</h2>
 
-<table class="striped highlight">
+<table class="striped centered">
     <thead>
     <tr>
         <th>Nombre</th>
@@ -29,10 +29,22 @@
                 <a href="#!" onclick="add(amount@product.productId)"><i class="amount-symbols">+</i></a>
             </div>
         </td>
-        <td><a href="#!" onclick="addToCart(@product.productId, '@routes.InvoiceController.addToCart()')" ><i class="material-icons">add_shopping_cart</i></a></td>
+        <td><a href="#modal1" class="waves-effect waves-light btn modal-open" onclick="addToCart(@product.productId, '@product.productName', '@routes.InvoiceController.addToCart()')" >
+            <i class="material-icons">add_shopping_cart</i></a></td>
+
+             <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                <h4>Seguir comprando...</h4>
+                <p id="message">a</p>
+                </div>
+                <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Seguir comprando</a>
+                <a href="@routes.InvoiceController.cart()" class="modal-close waves-effect waves-green btn-flat">Ir al carro</a>
+                </div>
+            </div>
     </tr>
     }
     </tbody>
 </table>
-
 }

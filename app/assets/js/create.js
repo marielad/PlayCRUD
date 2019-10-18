@@ -1,10 +1,20 @@
+(function ($) {
+    $(function () { 
+        $('.modal').modal();
+        $('.trigger-modal').modal();
+    });
+})(jQuery);
+
+var cart = sessionStorage.setItem("cart", "0");
+document.getElementById("cartNumber").innerHTML = cart;
+
 function substract(id){
     console.log(id);
-    var patata = parseInt(document.getElementById(id.id).value);
-    console.log(patata);
-    if(patata > 1){
-    patata -= parseInt(1);
-    document.getElementById(id.id).value = patata;
+    var amount = parseInt(document.getElementById(id.id).value);
+    console.log(amount);
+    if(amount > 1){
+    amount -= parseInt(1);
+    document.getElementById(id.id).value = amount;
     }else{
         alert("La cantidad mínima es 1");
     }
@@ -16,7 +26,7 @@ function add(id){
     document.getElementById(id.id).value = patata;
 }
 
-function addToCart(id,route){
+function addToCart(id, name ,route){
     console.log(id);
     var value = parseInt(document.getElementById("amount"+id).value);
     var xhr = new XMLHttpRequest();
@@ -26,6 +36,14 @@ function addToCart(id,route){
         productId: id,
         value: value
     }));
+    
+    cartNumber += value;
+
+    console.log("Cart: " + cart+ "CartNumber: " + cartNumber);
+
+    var message = "A añadido " + value + " " + name;
+    document.getElementById("message").innerHTML = message;
+    $('#modal1').modal('open');
 }
 
 function create(route) {
@@ -39,3 +57,4 @@ function cancel(route) {
     xhttp.open("POST", route, true);
     xhttp.send();
 }
+

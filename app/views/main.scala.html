@@ -4,7 +4,7 @@
 * two arguments, a `String` for the title of the page and an `Html`
 * object to insert into the body of the page.
 *@
-@(title: String, head: Html = Html(""), cart: Integer = 0)(content: Html)
+@(title: String, head: Html = Html(""))(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@title</title>
+    <script type="text/javascript" src='@routes.Assets.versioned("js/jquery-3.4.1.min.js")'></script>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -37,7 +38,7 @@
                     <li><a href="@routes.InvoiceController.read()">Facturas</a></li>
                     <li><a href="@routes.InvoiceController.cart()">
                         <i class="medium material-icons">shopping_cart
-                            <small class="notification-badge accent-2">@cart</small>
+                            <small class="notification-badge accent-2" id="cartNumber">0</small>
                         </i>
                         </a></li>
                 </ul>
